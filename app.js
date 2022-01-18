@@ -1,11 +1,36 @@
 import express from "express";
-
-import router from "./routes/visitor.routes.js";
+import mongoose from "mongoose";
 
 const app = express();
-app.use(express.json());
 
-app.use("/", router)
+mongoose.connect(
+  process.env.MONGODB_URL || "mongodb://localhost:27017/Visitors",
+  { useNewUrlParser: true }
+);
+mongoose.connection.on("error", function (e) {
+  console.error(e);
+});
+
+app.use(express.urlencoded());
+
+const schema = {
+  date: Date,
+  name: String,
+};
+
+const Visitor = mongoose.model("Visitors", schema, "Visitor");
+
+app.get("/", (req, res) => {
+  const { name } = req.query;
+  const newVisitor = {};
+  const date = Date.now();
+  newVisitor.name = name || "Anómimo";
+  newVisitor.date = date;
+  Visitor.create(newVisitor, (err, visitor) => {
+    if (err) res.sendStatus(500);
+    res.send(`<h1>El visitante fue almacenado con éxito</h1>`);
+  });
+});
 
 const PORT = process.env.PORT || 3000;
 
