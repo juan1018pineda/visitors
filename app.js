@@ -21,10 +21,13 @@ const schema = {
 const Visitor = mongoose.model("Visitor", schema);
 
 app.get("/", (req, res) => {
-  const { name } = req.query;
+  let name =
+    req.query.name == undefined || req.query.name == ""
+      ? "Anónimo"
+      : req.query.name;
   const newVisitor = {};
   const date = Date.now();
-  newVisitor.name = name || "Anómimo";
+  newVisitor.name = name;
   newVisitor.date = date;
   const visitor = new Visitor(newVisitor);
   visitor.save((err, visitor) => {
