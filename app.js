@@ -18,7 +18,7 @@ const schema = {
   name: String,
 };
 
-const Visitor = mongoose.model("Visitors", schema, "Visitor");
+const Visitor = mongoose.model("Visitor", schema);
 
 app.get("/", (req, res) => {
   const { name } = req.query;
