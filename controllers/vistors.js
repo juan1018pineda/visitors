@@ -9,7 +9,7 @@ export const createVisitor = (req, res) => {
   newVisitor.name = name || "Anómimo";
   newVisitor.date = date;
 
-  Visitor.create(newVisitor, (err, visitor) => {
+  newVisitor.save(function (err, visitor) {
     if (err) res.sendStatus(500);
     res.send(`<h1>El visitante fue almacenado con éxito</h1>`);
   });
