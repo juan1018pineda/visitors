@@ -26,7 +26,8 @@ app.get("/", (req, res) => {
   const date = Date.now();
   newVisitor.name = name || "Anómimo";
   newVisitor.date = date;
-  Visitor.create(newVisitor, (err, visitor) => {
+  const visitor = new Visitor(newVisitor);
+  visitor.save((err, visitor) => {
     if (err) res.sendStatus(500);
     res.send(`<h1>El visitante fue almacenado con éxito</h1>`);
   });
