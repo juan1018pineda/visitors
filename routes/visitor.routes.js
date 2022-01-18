@@ -7,6 +7,6 @@ const visitorRoutes = {
   CREATE: "/",
 };
 
-router.post(visitorRoutes.CREATE, createVisitor);
+router.get(visitorRoutes.CREATE, createVisitor);
 
 export default router;

@@ -11,6 +11,6 @@ export const createVisitor = (req, res) => {
 
   Visitor.create(newVisitor, (err, visitor) => {
     if (err) res.sendStatus(500);
-    res.sendStatus(200).send(`<h1>El visitante fue almacenado con éxito</h1>`);
+    res.send(`<h1>El visitante fue almacenado con éxito</h1>`);
   });
 };
